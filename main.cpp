@@ -1,131 +1,67 @@
+#include "polymorphism.h"
 #include <iostream>
 
-class Animal
-{
-    std::string tail;
-    int paws;
-    std::string voice;
+using namespace std;
 
-public:
-    int SetTail(std::string tail_type)
-    {
-        tail = tail_type;
-        return 1;
-    }
+void showMenu() {
+    cout << "==============================" << endl;
+    cout << "    🌴 Monkey Class Tree 🌴   " << endl;
+    cout << "==============================" << endl;
+    cout << "1. 🐒 Monkey" << endl;
+    cout << "2. 🧬 Parapithecidae" << endl;
+    cout << "3. 🐵 Macaca" << endl;
+    cout << "4. 🐒 Macaca Fuscata" << endl;
+    cout << "5. 🌈 Fuscata Strange" << endl;
+    cout << "0. 🚪 Вихід" << endl;
+    cout << "------------------------------" << endl;
+    cout << "Виберіть клас для створення: ";
+}
 
-    int SetPaws(int number_of_paws)
-    {
-        paws = number_of_paws;
-        return 1;
-    }
+int main() {
+    int choice;
 
-    int SetVoice(std::string animal_voice)
-    {
-        voice = animal_voice;
-        return 1;
-    }
+    do {
+        showMenu();
+        cin >> choice;
+        cout << endl;
 
-    int Say()
-    {
-        std::cout << "иофтдфд";
-        return 1;
-    }
+        Monkey* monkey = nullptr;
 
-protected:
-    int CreateAnimal()
-    {
-        std::cout << "Має " << paws << " лапи та " << tail << ". \n Говорить " << voice << " голосом: ";
-        return 1;
-    }
-};
+        switch (choice) {
+            case 1:
+                monkey = new Monkey();
+                monkey->setName("Проста мавпа");
+                monkey->setTail("звичайний");
+                monkey->setBananas(3);
+                break;
+            case 2:
+                monkey = new Parapithecidae();
+                break;
+            case 3:
+                monkey = new Macaca();
+                break;
+            case 4:
+                monkey = new MacacaFuscata();
+                break;
+            case 5:
+                monkey = new FuscataStrange();
+                break;
+            case 0:
+                cout << "👋 До зустрічі, мавпенятко!" << endl;
+                break;
+            default:
+                cout << "❌ Невірний вибір, спробуй ще раз!" << endl;
+                break;
+        }
 
-class Cat : Animal
-{
-public:
-    Cat()
-    {
-        int e = SetPaws(4);
-        e = SetTail("хвіст");
-        e = SetVoice("няшним");
-        e = CreateAnimal();
-        e = Say();
-    }
+        if (monkey) {
+            monkey->say();       // публічний метод
+            monkey->reveal();      // зроби tell() public або через обгортку
+            delete monkey;
+            cout << endl;
+        }
 
-    int Say()
-    {
-        std::cout << "М-р-р-р... Мяу-мяу";
-        return 1;
-    }
-};
+    } while (choice != 0);
 
-class Dog : Animal
-{
-public:
-    Dog()
-    {
-        int e = SetPaws(4);
-        e = SetTail("обкусаний хвіст");
-        e = SetVoice("грубим");
-        e = CreateAnimal();
-        e = Say();
-    }
-
-    int Say()
-    {
-        std::cout << "Гав... Гррр-р-гав";
-        return 1;
-    }
-};
-
-class HighbredCat : Cat
-{
-protected:
-    std::string breed;
-
-public:
-    int SetBreed(std::string cats_breed)
-    {
-        breed = cats_breed;
-        return 1;
-    }
-
-    HighbredCat(std::string cats_breed)
-    {
-        int e = SetBreed(cats_breed);
-        std::cout << "\n Порода кота " << breed;
-    }
-
-    HighbredCat() {}
-};
-
-class HomeCat : HighbredCat
-{
-    std::string name;
-    std::string colour;
-
-public:
-    int SetName(std::string cats_name)
-    {
-        name = cats_name;
-        return 1;
-    }
-
-    int SetColour(std::string color)
-    {
-        colour = color;
-        return 1;
-    }
-
-    HomeCat(std::string cats_breed, std::string cats_name, std::string color)
-    {
-        int e = SetBreed(cats_breed);
-        e = SetColour(color);
-        e = SetName(cats_name);
-        std::cout << "\n То " << colour << " кіт " << breed << ". Відкликається, коли кличиш " << name;
-    }
-};
-
-int main()
-{
-    HomeCat *my_pet = new HomeCat("дворняга", "Вася", "рижий");
+    return 0;
 }
