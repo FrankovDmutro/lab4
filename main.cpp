@@ -30,9 +30,11 @@ int main() {
         switch (choice) {
             case 1:
                 monkey = new Monkey();
-                monkey->setName("Проста мавпа");
+                monkey->setName("шаблон");
                 monkey->setTail("звичайний");
-                monkey->setBananas(3);
+                monkey->setBananas(9);
+                monkey->eatBanana();
+                //monkey->eatBanana(8);
                 break;
             case 2:
                 monkey = new Parapithecidae();
@@ -47,7 +49,7 @@ int main() {
                 monkey = new FuscataStrange();
                 break;
             case 0:
-                cout << "👋 До зустрічі, мавпенятко!" << endl;
+                cout << "👋 До зустрічі, мавпеняткa!" << endl;
                 break;
             default:
                 cout << "❌ Невірний вибір, спробуй ще раз!" << endl;
@@ -55,8 +57,8 @@ int main() {
         }
 
         if (monkey) {
-            monkey->say();       // публічний метод
-            monkey->reveal();      // зроби tell() public або через обгортку
+            monkey->makeSound();       
+            monkey->reveal();      
             delete monkey;
             cout << endl;
         }

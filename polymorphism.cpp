@@ -9,7 +9,7 @@ void Monkey::setTail(string t) {
 }
 
 void Monkey::setBananas(int b) {
-    bananas = b;
+    bananas += b;
 }
 
 string Monkey::getName() {
@@ -24,12 +24,23 @@ int Monkey::getBananas() {
     return bananas;
 }
 
-void Monkey::say() { 
-    cout << "У га га, я мавпа пустун!" << endl;
+void Monkey::makeSound() { 
+    cout << "У га га, я шаблон який буде відгукатися всюди!" << endl;
 }
 
 void Monkey::reveal() {
-    tell();  
+    tell();  //віртуальний виклик через невіртуальний метод» 
+             //або як кажуть: «динамічна диспетчеризація через virtual-функцію»
+}
+
+void Monkey::eatBanana() {
+    setBananas(-1);
+    cout << "Було з'їджено 1 банан!" << endl;
+}
+
+void Monkey::eatBanana(int count) {
+    setBananas(-count);
+    cout << "Було з'їджено " << count <<  " бананів!" << endl;
 }
 
 void Monkey::tell() {
@@ -40,7 +51,6 @@ Parapithecidae::Parapithecidae() {
     setName("Parapithecidae ");
     setTail("вимер");
     setBananas(0);
-    tell();
 }
 
 void Parapithecidae::tell() {
@@ -51,12 +61,7 @@ Macaca::Macaca() {
     setName("macaca");
     setTail("довгий, тонкий");
     setBananas(8);
-    //tell();
 }
-
-// Macaca::Macaca(int steal) {
-//     cout << "Привіт, я із сусідьного класу, поцупив у тебе " << steal << "бананів, та загалом маю " << steal + getBananas() << endl; 
-// }
 
 void Macaca::tell() {
     cout << "~Щось схоже на хрипо - сміх, але вам це подобається.." << endl;
@@ -64,31 +69,27 @@ void Macaca::tell() {
 
 MacacaFuscata::MacacaFuscata() {
     setName("Мукак");
-    tell();
 }
 
 void MacacaFuscata::tell() {
-    // cout << "Ви щось чуєте?" << endl << "(0, 1):";
-    // bool a;
-    // cin >> a;
-    // if (a) {
-    //     setBananas(0);
-    //     Macaca temp(getBananas());
-    // }
         cout << "Я " << getName() << ", і я з Японії, але я нічого не знаю про Наруто" << endl;
 }
 
-void FuscataStrange::setBananas(int b, string reason) {
-    Monkey::setBananas(b);  // використовуємо базовий метод
-    cout << "Банани оновлено до: " << getBananas() << " (" << reason << ")" << endl;
+void FuscataStrange::setReason(string reason) {
+    this->reason = reason;
+}
+
+string FuscataStrange::getReason() {
+    return reason;
 }
 
 FuscataStrange::FuscataStrange() {
+    setBananas(999);
     setName("клон");
     setTail("хвіст з чакри");
-    setBananas(0, "початкова ініціалізація");
+    setReason("бо маю купа чакри");
 }
 
 void FuscataStrange::tell() {
-    cout << "Хто я такий?" << endl;
+    cout << "Датебайо! Я " << getName() << ", маю " << getTail() << ". Влаштував собі банановий рай клонувавши " << getBananas() << " бананів, " << getReason() << "!" << endl;
 }

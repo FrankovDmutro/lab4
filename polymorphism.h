@@ -17,9 +17,12 @@ class Monkey {
         string getTail();
         int getBananas();
     
-        void say();
+        void makeSound();
 
         void reveal();
+
+        void eatBanana();
+        void eatBanana(int count);
 
     protected:
         virtual void tell();
@@ -53,8 +56,10 @@ class MacacaFuscata : public Macaca
 
 class FuscataStrange : public MacacaFuscata
 {
+    string reason;
     public:
-        void setBananas(int b, string reason);
+        void setReason(string reason);
+        string getReason();
         FuscataStrange();
     protected:
     void tell() override;
